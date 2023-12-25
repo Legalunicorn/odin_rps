@@ -13,7 +13,7 @@ function getComputerChoice(){
 }
 
 
-function fight(playerSelection,computerSelection){
+function playRound(playerSelection,computerSelection){
     playerSelection = playerSelection.toLowerCase();
     computerSelection = computerSelection.toLowerCase();
     if (playerSelection=='invalid'){
@@ -42,10 +42,17 @@ let result;
 function game(){
     for (let i=0;i<5;i++){
         let playerSelection = prompt('Choose rock, paper, or scissors!','invalid');
-        result = fight(playerSelection,getComputerChoice());
+        result = playRound(playerSelection,getComputerChoice());
         console.log(result);
     }
     
 
 }
-game();
+//game();
+
+const playerRock = document.querySelector('#rock');
+const playerPaper = document.querySelector('#paper');
+const playerScissors = document.querySelector('#scissors');
+
+//add event listener
+playerRock.addEventListener('click',playRound('rock',getComputerChoice()))
