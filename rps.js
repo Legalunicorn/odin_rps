@@ -44,10 +44,6 @@ function fight(playerChoice,computerChoice){
     }
 }
 
-function resetGame(){
-
-}
-
 function playRound(){
     //get computer choice
     computerChoice = getComputerChoice()
