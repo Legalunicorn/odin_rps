@@ -6,11 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="You">
+    <div id="buttons" class="buttons">
         <p>Your Choice: </p><Br>
-        <button id="rock">Rock</button><Br>
-        <button id="paper">Paper</button><Br>
-        <button id="scissors">Scissors</button>
+        <button id="rock" class="option">Rock</button><Br>
+        <button id="paper" class="option">Paper</button><Br>
+        <button id="scissors" class="option">Scissors</button>
     </div>
     <br>
     <div id="computer">
@@ -18,8 +18,13 @@
         <p id="computerpick"></p>
 
     </div>
-    <div id="output">
-        <p></p> 
+    <div id="data"> <!-- for the results-->
+        <p id="roundResult"></p>
+        <p>Score: </p>
+        <p id="score"></p>
+    </div>
+    <div>
+        <h2 id="gameResult"></h2>
     </div>
 
     <script src="rps.js"></script>

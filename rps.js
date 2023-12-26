@@ -1,58 +1,81 @@
+
+const playerChoices = document.querySelectorAll('.option');
+const roundResult = document.querySelector('#roundResult');
+const gameResult = document.querySelector('#gameResult')
+const score = document.querySelector('#score');
+let computerChoice,playerChoice;
+let playerScore=0,computerScore=0;
+
+
 function getComputerChoice(){
     //get random number from 0-2
     let ranint = Math.floor(Math.random()*3);
     if (ranint==0){
-        return 'Rock';
+        return 'rock';
     }
     else if (ranint==1){
-        return 'Paper';
+        return 'paper';
     }
     else {
-        return 'Scissors';
+        return 'scissors';
     }
 }
 
+function fight(playerChoice,computerChoice){
+    playerChoice = playerChoice.toLowerCase();
+    computerChoice = computerChoice.toLowerCase();
+    switch (true){
+        case (playerChoice==computerChoice):
+            roundResult.textContent = `Tie! both players has chosen ${playerChoice}`;
+            break;
 
-function playRound(playerSelection,computerSelection){
-    playerSelection = playerSelection.toLowerCase();
-    computerSelection = computerSelection.toLowerCase();
-    if (playerSelection=='invalid'){
-        return 'You have chosen an invalid option!'
-    }
+        case (playerChoice=='rock' && computerChoice =='scissors'):
+        case (playerChoice=='paper' && computerChoice =='rock'):
+        case (playerChoice=='scissors' && computerChoice=='paper'):
+            roundResult.textContent = `Amazing! ${playerChoice} beats ${computerChoice}`;
+            playerScore += 1;
+            break;
 
-    // first settle ties
-    if (playerSelection==computerSelection){
-        return `TIE! Both players have picked ${playerSelection}`;
-    }
-    else if (playerSelection=='rock'){
-        //computer is either paper of sc
-        return (computerSelection=='paper') ? 'You lose! Paper beats rock' : 'You win! Rock beats scissors!';
-    }
-    else if (playerSelection=='paper'){
-        //computer is either paper of sc
-        return (computerSelection=='scissors') ? 'You lose! Scissors beats Paper' : 'You win! Paper beats rock!';
-    }
-    else if (playerSelection=='scissors'){
-        //computer is either paper of sc
-        return (computerSelection=='rock') ? 'You lose! rock beats scissors' : 'You win! scissors beats paper!';
+        default:
+            roundResult.textContent = `Too bad! ${computerChoice} beats ${playerChoice}`;
+            computerScore += 1;
+
+
     }
 }
 
-let result;
-function game(){
-    for (let i=0;i<5;i++){
-        let playerSelection = prompt('Choose rock, paper, or scissors!','invalid');
-        result = playRound(playerSelection,getComputerChoice());
-        console.log(result);
-    }
-    
+function resetGame(){
 
 }
-//game();
 
-const playerRock = document.querySelector('#rock');
-const playerPaper = document.querySelector('#paper');
-const playerScissors = document.querySelector('#scissors');
+function playRound(){
+    //get computer choice
+    computerChoice = getComputerChoice()
+    playerChoices.forEach((choice)=>{
+        choice.addEventListener('click',()=>{
+            playerChoice = choice.id;
+            computerChoice = getComputerChoice();
 
-//add event listener
-playerRock.addEventListener('click',playRound('rock',getComputerChoice()))
+            fight(playerChoice,computerChoice);
+            score.textContent = `You: ${playerScore} | Bot: ${computerScore}`;
+            
+            if (playerScore==5 || computerScore==5){
+                //end the game
+                if (playerScore==5){
+                    gameResult.textContent = 'Congrats you have won!'
+                }
+                else {
+                    gameResult.textContent = 'Too bad! The computer has won!'
+                }
+
+                playerScore = 0;
+                computerScore = 0;
+                score.textContent = 'You:0 | Bot:0';
+            }
+
+
+        })
+    })
+
+}
+playRound();
